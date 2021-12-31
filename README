@@ -50,8 +50,13 @@ Useful notes
     
     
     I have built and tested this on Ubuntu 20.04. To build this project you must
-    have the typical apt install -y build-essential installed. To build simply:
+    have the typical apt install -y build-essential installed. To build simply 
+    execute the below steps. Reference http://openbox.org/wiki/Help:Installing 
+    for further help.
+    
     cd openbox
+    ./boostrap
+    ./configure --prefix=/usr --sysconfdir=/etc
     make
     make install
 
