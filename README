@@ -31,7 +31,7 @@ Purpose
     similar to what is already available in Windows for a feature called
     Collage Mode or now Combined Desktop via Intel Graphics Command Center.
     This patch doesn't have any Bezel Correction and likely a future project
-    to have some fun with :-)
+    to have some fun with in the i915 Intel graphics driver :-)
 
 ----
 
