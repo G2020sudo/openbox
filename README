@@ -20,4 +20,40 @@ Copyright (C) 2002  Dana Jansens
     GNU General Public License for more details.
 
     See the COPYING file for a copy of the GNU General Public License.
+    
+----
+
+Purpose
+    
+    This is a fork of https://github.com/danakj/openbox. If you want to 
+    play games or videos (using VLC/GStreamer/etc) fullscreen across
+    multiple monitors then this patch is for you. This feature is
+    similar to what is already available in Windows for a feature called
+    Collage Mode or now Combined Desktop via Intel Graphics Command Center.
+    This patch doesn't have any Bezel Correction and likely a future project
+    to have some fun with :-)
+
+----
+
+Useful notes
+
+    Make sure to use xrandr or arandr to set the desired layout and 
+    resolutions/refresh rates for your monitors.  
+    
+    To customize your Openbox environment refer to this really good tutorial https://help.ubuntu.com/community/Openbox.
+    This project already customizes the menu.xml file but the original is still
+    available (menu-orig.xml).
+
+
+    Replace openbox-session with openbox-session-dbg if you need to debug Openbox WM. 
+    This will enable all debug messages to be logged to $HOME/ob-session.log.
+    
+    
+    I have built and tested this on Ubuntu 20.04. To build this project you must
+    have the typical apt install -y build-essential installed. To build simply:
+    cd openbox
+    make
+    make install
+
+
 
