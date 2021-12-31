@@ -2908,7 +2908,16 @@ static void client_apply_startup_state(ObClient *self,
        not, so this needs to be called even if we have fullscreened/maxed
     */
     self->area = oldarea;
-    client_configure(self, x, y, w, h, FALSE, TRUE, FALSE);
+
+    /* Don't resize to a single monitor if combined_desktop_fullscreen is enabled
+    */
+    if (fullscreen)
+    {
+        client_configure(self, x, y, self->area.width, self->area.height, FALSE, TRUE, FALSE);
+    }
+    else
+        client_configure(self, x, y, w, h, FALSE, TRUE, FALSE);
+
 
     /* nothing to do for the other states:
        skip_taskbar
@@ -3007,13 +3016,8 @@ void client_try_configure(ObClient *self, gint *x, gint *y, gint *w, gint *h,
         const Rect *a;
         guint i;
 
-        i = screen_find_monitor(&desired);
-        a = screen_physical_area_monitor(i);
-
-        *x = a->x;
-        *y = a->y;
-        *w = a->width;
-        *h = a->height;
+        *x = 0;
+        *y = 0;
 
         user = FALSE; /* ignore if the client can't be moved/resized when it
                          is fullscreening */
@@ -3345,10 +3349,13 @@ void client_fullscreen(ObClient *self, gboolean fs)
 
         /* these will help configure_full figure out where to fullscreen
            the window */
-        x = self->area.x;
-        y = self->area.y;
-        w = self->area.width;
-        h = self->area.height;
+        
+        const Rect *allmonitors;        
+        allmonitors = screen_physical_area_all_monitors();
+        x = self->area.x = allmonitors->x;
+        y = self->area.y = allmonitors->y;
+        w = self->area.width = allmonitors->width;
+        h = self->area.height = allmonitors->height;
     } else {
         g_assert(self->pre_fullscreen_area.width > 0 &&
                  self->pre_fullscreen_area.height > 0);
@@ -3500,7 +3507,6 @@ void client_maximize(ObClient *self, gboolean max, gint dir)
             g_assert(self->pre_max_area.width > 0);
 
             x = self->pre_max_area.x;
-            w = self->pre_max_area.width;
 
             RECT_SET(self->pre_max_area, 0, self->pre_max_area.y,
                      0, self->pre_max_area.height);
@@ -3509,7 +3515,6 @@ void client_maximize(ObClient *self, gboolean max, gint dir)
             g_assert(self->pre_max_area.height > 0);
 
             y = self->pre_max_area.y;
-            h = self->pre_max_area.height;
 
             RECT_SET(self->pre_max_area, self->pre_max_area.x, 0,
                      self->pre_max_area.width, 0);
