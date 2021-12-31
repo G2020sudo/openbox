@@ -19,4 +19,4 @@ A="${XDG_CONFIG_HOME:-"$HOME/.config"}/openbox/environment"
 test -r $A && . $A
 
 # Run Openbox, and have it run the autostart stuff
-exec /usr/bin/openbox --debug --startup "/usr/libexec/openbox-autostart OPENBOX" "$@" > /home/ehl/Desktop/ob-session.log 2>&1
+exec /usr/bin/openbox --debug --startup "/usr/libexec/openbox-autostart OPENBOX" "$@" > $HOME/ob-session.log 2>&1
